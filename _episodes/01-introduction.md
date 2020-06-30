@@ -48,57 +48,105 @@ through a shell.
 
 In this lesson you will learn how to use the command line interface to move around in your file system. 
 
+## Before you start
+
+We will be working on "Wolfpack", the Garvan High Performance Cluster (HPC), but almost all of the competencies 
+covered here translate directly to other high performance computing environments. Most of the commands will also
+work on your own laptop, especially if you use Mac or Linux (or the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/faq)).
+There are some "dialect" differences between different operating systems, but most of the basic concepts translate well.
+
+Garvan staff and students can [request access](https://intranet.gimr.garvan.org.au/display/HPC/Connecting+to+Wolfpack) to use Wolfpack.
+It may take a few days for your request to be approved, so allow plenty of time before the course starts.
+
+Once you have received access, the steps required to connect to the cluster depend on your operating system. See [this Confluence page](https://intranet.gimr.garvan.org.au/display/BINF/Connecting+to+the+Cluster)) .
+
 ## How to access the shell
 
 On a Mac or Linux machine, you can access a shell through a program called Terminal, which is already available
 on your computer. If you're using Windows, you'll need to download a separate program to access the shell.
+For this course, we recommend [PuTTY](https://www.putty.org/) for Windows users.
 
 We will spend most of our time learning about the basics of the shell
 by manipulating some experimental data. Some of the data we're going to be working with is quite large, and
 we're also going to be using several bioinformatic packages in later
-lessons to work with this data. To avoid having to spend time 
-downloading the data and downloading and installing all of the software,
-we're going to be working with data on a remote server. 
+lessons to work with this data. 
 
-You can log-in to the remote server using the instructions 
-[here](http://www.datacarpentry.org/cloud-genomics/02-logging-onto-cloud/#logging-onto-a-cloud-instance). 
-Your instructor will supply the `ip_address` and password that you need to login.
+## Logging on for the first time
 
-Each of you will have a different `ip_address`. This will 
-prevent us from accidentally changing each other's files as we work through the
-exercises. The password will be the same for everyone. 
-
-After logging in, you will see a screen showing something like this: 
+When you log on to the cluster (either using PuTTY or using the "ssh" command from the Terminal), 
+you will be greeted with something like this:
 
 ~~~
-Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-48-generic x86_64)
+Last login: Tue Jun 30 21:53:23 2020 from 172.26.74.27
+Rocks 6.2 (SideWinder)
+Profile built 09:52 10-Apr-2020
 
- * Documentation:  https://help.ubuntu.com/
-
-  System information as of Sat Feb  2 00:08:17 UTC 2019
-
-  System load: 0.0                Memory usage: 5%   Processes:       82
-  Usage of /:  29.9% of 98.30GB   Swap usage:   0%   Users logged in: 0
-
-  Graph this data and manage this system at:
-    https://landscape.canonical.com/
-
-  Get cloud support with Ubuntu Advantage Cloud Guest:
-    http://www.ubuntu.com/business/services/cloud
-
-597 packages can be updated.
-444 updates are security updates.
-
-New release '16.04.5 LTS' available.
-Run 'do-release-upgrade' to upgrade to it.
-
-
-Last login: Fri Feb  1 22:34:53 2019 from c-73-116-43-163.hsd1.ca.comcast.net
+Kickstarted 09:58 10-Apr-2020
+-bash-4.1$
 ~~~
 {: .output}
 
-This provides a lot of information about the remote server that you're logging in to. We're not going to use most of this information for
-our workshop, so you can clear your screen using the `clear` command. 
+Here "-bash-4.1$" is a **prompt**, which shows us that the shell is waiting for input.
+The text used for this prompt can be customised to include extra information, such as the
+time, date or current working directory.
+Later we will delve into **how** you can customise the prompt and other aspects of your work 
+environment, but for now let's switch to a more useful setup.
+
+Note1: Skip this next step if you have already configured your .bash_profile and .bashrc
+Note2: If you don't know what I'm talking about, then don't worry -- the next step will take care of it for you.
+
+Type the following command after the prompt. Take care with the spelling, including capitalisation.
+
+~~~
+$ source /share/ScratchGeneral/johree/course/setup_dot.sh
+~~~
+{: .bash}
+
+If you mistype, you will get an error message. Otherwise, this script will create several files that
+go some way towards customising your work environment. You should see output something like this:
+
+~~~
+Home quota...
+
+  <GB> <soft> <hard> : <files> <soft> <hard> : <path to volume> <pan_identity(name)>
+  0.77 500.00 600.00 :    3088 190000 200000 : /home/johree uid:10548(johree)
+
+Scratch quota...
+
+    <GB>  <soft>  <hard> : <files> <soft>  <hard> :      <path to volume> <pan_identity(name)>
+  180.12 6000.00 7000.00 :   13198 900000 1000000 : /share/ScratchGeneral uid:111111(user)
+
+user@dice02:~:$
+~~~
+{: .bash}
+
+In fact, you will see this extra information about your disk quotas every time you log on from now
+(unless you do some more customising yourself.) Also, you may have noticed that the prompt has changed.
+Now the prompt tells you who is logged on (your Garvan user ID) and which node you are connected to.
+Later in the course we will learn how to switch from a login node to a compute node, and so having
+this information in the prompt to remind us where we are can be really useful.
+The "~" tells you that you are in your home directory. This will change as you navigate through the file system.
+
+As well as customising your work environment, you will also need to set up the data that you will be using for this course.
+Type the following comand after the prompt. Again, you will need to be careful with your typing. You can speed things up AND 
+reduce typos by taking advantage of "tab completion". Instead of typing "share", just type "sh" and then press the Tab key.
+Similarly, type "Sc" and press Tab. (You still need to get capitalisation right...) If there are multiple candidates then 
+you may need to type more than two or three letters before tab completion finds a unique match.
+
+~~~
+$ source /share/ScratchGeneral/johree/course/setup.sh
+~~~
+{: .bash}
+
+This "setup.sh" script creates a bunch of directories, copies data into them and then decompresses the data. The script 
+prints out messages on the screen to show what it is doing. Most of these messages will probably be fairly cryptic at this stage,
+so don't worry if you don't understand everything just yet. By the end of the course, most of this will make sense.
+However, please alert the instructor if there are any **error** messages in the output. We want to make sure that you are set up
+and ready to go before the course gets properly underway.
+
+## Getting started
+
+By now, the screen is full of text. Let's clear the screen (and our heads) with the  `clear` command. 
 
 ~~~
 $ clear
@@ -125,25 +173,7 @@ which hold files or other directories.
 
 Several commands are frequently used to create, inspect, rename, and delete files and directories.
 
-> ## Preparation Magic
->
-> If you type the command:
-> `PS1='$ '`
-> into your shell, followed by pressing the <kbd>Enter</kbd> key,
-> your window should look like our example in this lesson.  
-> This isn't necessary to follow along (in fact, your prompt may have
-> other helpful information you want to know about).  This is up to you!  
-{: .callout}
 
-~~~
-$
-~~~
-{: .bash}
-
-The dollar sign is a **prompt**, which shows us that the shell is waiting for input;
-your shell may use a different character as a prompt and may add information before
-the prompt. When typing commands, either from these lessons or from other sources,
-do not type the prompt, only the commands that follow it.
 
 Let's find out where we are by running a command called `pwd`
 (which stands for "print working directory").
@@ -153,8 +183,8 @@ i.e.,
 the directory that the computer assumes we want to run commands in,
 unless we explicitly specify something else.
 Here,
-the computer's response is `/home/dcuser`,
-which is the top level directory within our cloud system:
+the computer's response is `/home/user`,
+where "user" is your Garvan ID.
 
 ~~~
 $ pwd
@@ -162,7 +192,7 @@ $ pwd
 {: .bash}
 
 ~~~
-/home/dcuser
+/home/user
 ~~~
 {: .output}
 
