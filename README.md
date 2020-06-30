@@ -1,12 +1,10 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3260560.svg)](https://doi.org/10.5281/zenodo.3260560)
+[![DOI]
 
-
-[![Create a Slack Account with us](https://img.shields.io/badge/Create_Slack_Account-The_Carpentries-071159.svg)](https://swc-slack-invite.herokuapp.com/) 
-[![Slack Status](https://img.shields.io/badge/Slack_Channel-dc--genomics-E01563.svg)](https://swcarpentry.slack.com/messages/C9N1K7DCY) 
+> These course materials are forked from the [Introduction to the Command Line for Genomics](http://www.datacarpentry.org/shell-genomics/) by [Data Carpentry](https://datacarpentry.org/), and has been adapted for use with the Garvan HPC affectionately known as "Wolfpack".
 
 # Shell Genomics lessons
 
-An introduction to the Unix shell for people working with genomics data. This lesson is part of the [Data Carpentry Genomics Workshop](http://www.datacarpentry.org/genomics-workshop/). Please see http://www.datacarpentry.org/shell-genomics/ for a rendered version of this material.
+An introduction to the Unix shell for people working with genomics data. This lesson is part of the [Data Carpentry Genomics Workshop](http://www.datacarpentry.org/genomics-workshop/). Please see https://kccg.github.io/shell-genomics/ for a rendered version of this material.
 
 ## Contribution
 
@@ -18,10 +16,4 @@ All participants should agree to abide by the [Data Carpentry Code of Conduct](h
 
 ## Authors
 
-Shell Genomics is authored and maintained by the [community](https://github.com/datacarpentry/shell-genomics/network/members). 
-
-## Citation
-
-Please cite as:
-
-Erin Alison Becker, Anita Schürch, Tracy Teal, Sheldon John McKay, Jessica Elizabeth Mizzi, François Michonneau, et al. (2019, June). datacarpentry/shell-genomics: Data Carpentry: Introduction to the shell for genomics data, June 2019 (Version v2019.06.1). Zenodo. http://doi.org/10.5281/zenodo.3260560
+This version of the course materials has been edited by <j.reeves@garvan.org.au>. The [original Shell Genomics workshop](https://github.com/datacarpentry/shell-genomics) is authored and maintained by the [community](https://github.com/datacarpentry/shell-genomics/network/members). 
