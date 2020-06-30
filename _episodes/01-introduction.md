@@ -309,7 +309,7 @@ Let's go into the `untrimmed_fastq` directory and see what is in there.
 
 ~~~
 $ cd untrimmed_fastq
-$ ls -F
+$ ls --classify
 ~~~
 {: .bash}
 
