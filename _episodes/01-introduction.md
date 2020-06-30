@@ -131,7 +131,8 @@ As well as customising your work environment, you will also need to set up the d
 Type the following comand after the prompt. Again, you will need to be careful with your typing. You can speed things up AND 
 reduce typos by taking advantage of "tab completion". Instead of typing "share", just type "sh" and then press the Tab key.
 Similarly, type "Sc" and press Tab. (You still need to get capitalisation right...) If there are multiple candidates then 
-you may need to type more than two or three letters before tab completion finds a unique match.
+pressing Tab once won't do anything, but if you press Tab a second time you will see a list of alternatives. In this case, 
+type another letter or two until the first part is unique and then press Tab again.
 
 ~~~
 $ source /share/ScratchGeneral/johree/course/setup.sh
@@ -205,13 +206,12 @@ $ ls
 {: .bash}
 
 ~~~
-R  r_data  shell_data
+bio    course    data    scratch    shell_data    
 ~~~
 {: .output}
 
 `ls` prints the names of the files and directories in the current directory in
-alphabetical order,
-arranged neatly into columns. 
+alphabetical order, arranged neatly into columns. 
 We'll be working within the `shell_data` subdirectory, and creating new subdirectories, throughout this workshop.  
 
 The command to change locations in our file system is `cd`, followed by a
@@ -238,11 +238,11 @@ sra_metadata  untrimmed_fastq
 ~~~
 {: .output}
 
-We can make the `ls` output more comprehensible by using the **flag** `-F`,
+We can make the `ls` output more comprehensible by using the **option** `-classify`,
 which tells `ls` to add a trailing `/` to the names of directories:
 
 ~~~
-$ ls -F
+$ ls --classify
 ~~~
 {: .bash}
 
@@ -251,8 +251,8 @@ sra_metadata/  untrimmed_fastq/
 ~~~
 {: .output}
 
-Anything with a "/" after it is a directory. Things with a "*" after them are programs. If
-there are no decorations, it's a file.
+Anything with a "/" after it is a directory. Things with a "*" after them are programs. 
+Symbolic links have "@". If there are no decorations, it's a file.
 
 `ls` has lots of other options. To find out what they are, we can type:
 
@@ -267,6 +267,11 @@ their usage and flags. Some manual files are very long. You can scroll through t
 file using your keyboard's down arrow or use the <kbd>Space</kbd> key to go forward one page
 and the <kbd>b</kbd> key to go backwards one page. When you are done reading, hit <kbd>q</kbd>
 to quit.
+
+You'll notice that many options have a long form (such as "--classify") and short form (such as "-F"). 
+The short form is often described as a **flag**.
+The long forms are easier to remember and easier to read, while the short forms involve less typing.
+I am a big fan of clarity over brevity, but choose between long and short forms depending on the situation.
 
 > ## Challenge
 > Use the `-l` option for the `ls` command to display more information for each item 
@@ -293,9 +298,12 @@ to quit.
 > {: .solution}
 {: .challenge}
 
-No one can possibly learn all of these arguments, that's what the manual page
+You don't need to learn all of these arguments, that's what the manual page
 is for. You can (and should) refer to the manual page or other help files
-as needed.
+as needed. You'll find yourself gradually learning the more common commands with time. 
+
+On the other hand, it **is** possible to systematically learn all of the options of a command 
+if you decide that would be helpful. Tools such as [Anki](https://apps.ankiweb.net/) are a great way to do this.
 
 Let's go into the `untrimmed_fastq` directory and see what is in there.
 
