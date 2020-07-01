@@ -77,10 +77,17 @@ in a FASTQ file. We may also want to inspect the quality scores associated with
 each of these reads. To get all of this information, we will return the line 
 immediately before each match and the two lines immediately after each match.
 
-We can use the `-B` argument for grep to return a specific number of lines before
-each match. The `-A` argument returns a specific number of lines after each matching line. Here we want the line *before* and the two lines *after* each 
-matching line, so we add `-B1 -A2` to our grep command:
+We can use the `--before-context` argument for grep to return a specific number of lines before
+each match. The `--after-context` argument returns a specific number of lines after each matching line. 
+Here we want the line *before* and the two lines *after* each 
+matching line, so we add `--before-context=1 --after-context=2` to our grep command:
 
+~~~
+$ grep --before-context=1 --after-context=2 NNNNNNNNNN SRR098026.fastq
+~~~
+{: .bash}
+
+The short version of this command is easier to type but harder to remember:
 ~~~
 $ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq
 ~~~
@@ -167,6 +174,8 @@ in our FASTQ files that contain
 $ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq > bad_reads.txt
 ~~~
 {: .bash}
+
+(Here we are using the short forms of the `--before-context` and `--after-context` options, namely `-B` and `-A`.)
 
 > ## File extensions
 > 
@@ -361,6 +370,10 @@ $ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | wc -l
 ~~~
 {: .bash}
 
+Once again, the **output** from the **left** hand side of the pipe operator `|` becomes the **input** for the **right** hand side.
+Notice how we didn't have to specify a file name for the `wc` command here? That's because `wc` processes the output from `grep`
+instead of a regular file.
+
 Because we asked `grep` for all four lines of each FASTQ record, we need to divide the output by
 four to get the number of sequences that match our search pattern. Since 537 / 4 = 134.25 and we
 are expecting an integer number of records, there is something added or missing in `bad_reads.txt`. 
@@ -390,14 +403,14 @@ lines matching the pattern, and indicate groups of lines which did not match the
 To fix this issue, we can redirect the output of grep to a second instance of `grep` as follows.
 
 ~~~
-$ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | grep -v '^--' > bad_reads.fastq
+$ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | grep --invert-match '^--' > bad_reads.fastq
 ~~~
 {: .bash}
 
-The `-v` option in the second `grep` search stands for `--invert-match` meaning `grep` will now only display the 
-lines which do not match the searched pattern, in this case `'^--'`. The caret (`^`) is an **anchoring** 
+The `--invert-match` option in the second `grep` causes `grep` to display only the 
+lines which do **not** match the searched pattern, in this case `'^--'`. The caret (`^`) is an **anchoring** 
 character matching the beginning of the line, and the pattern has to be enclose by single quotes so `grep` does 
-not interpret the pattern as an extended option (starting with --).
+not interpret the pattern as an extended option (starting with --). The short form for `--invert-match` is `-v`.
 
 > ## Custom `grep` control
 > 
