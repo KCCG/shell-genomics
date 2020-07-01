@@ -357,3 +357,25 @@ This prints the contents of your home directory, without you needing to
 type the full path. 
 
 The commands `cd`, and `cd ~` are very useful for quickly navigating back to your home directory. We will be using the `~` character in later lessons to specify our home directory.
+
+## Tree view
+
+There is a very useful utility available on Wolfpack called `tree` that uses ASCII art to display the structure of the current directory
+as well as its subdirectory. Try the following:
+
+~~~
+$ cd ~
+$ tree -L 3
+~~~
+{: .bash}
+
+**Caution**: By default, `tree` displays all of the directories below the current directory, as well as all the subdirectories of those directories and 
+all their subdirectories, and so on all the way down to the lowest level. Depending on where you are in the filesystem, that could produce more output
+than is really helpful. It is usually a good idea to use the `-L` flag to only display a few "levels".
+
+## sshfs
+
+All the command line has many advantages, sometimes it is easier to browse the filesystem using familiar graphical interfaces. `sshfs` (Mac) and `sshfs-win`
+(Windows) are tools that allow you to "mount" the volumes on the cluster with the filesystem on your laptop so that you browse files and directories in
+much the same way as you would "mount" a USB stick or external drive. Using `Finder` or `File Explorer` to visually check the results of your operations
+can be helpful as you work through this course. See [this Confluence page](https://intranet.gimr.garvan.org.au/pages/viewpage.action?pageId=56502732) for details.
