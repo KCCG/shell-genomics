@@ -245,10 +245,10 @@ referred to as the *root directory*. So, to summarize: `user` is a
 directory in `home` which is a directory in `/`. More on `root` and
 `home` in the next section.
 
-Now enter the following command:
+Now enter the following command (again, substitute `user` for your Garvan ID):
 
 ~~~
-$ cd /home/dcuser/shell_data/.hidden
+$ cd /home/user/shell_data/.hidden
 ~~~
 {: .bash}
 
