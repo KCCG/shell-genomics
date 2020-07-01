@@ -13,7 +13,7 @@ objectives:
 - "Employ navigational shortcuts to move around your file system."
 keypoints:
 - "The `/`, `~`, and `..` characters represent important navigational shortcuts."
-- "Hidden files and directories start with `.` and can be viewed using `ls -a`."
+- "Hidden files and directories start with `.` and can be viewed using `ls --all`."
 - "Relative paths specify a location starting from the current location, while absolute paths specify a location from the root of the file system."
 ---
 
@@ -33,6 +33,8 @@ $ cd shell_data
 $ cd untrimmed_fastq
 ~~~
 {: .bash}
+
+Notice that your prompt changes each time you "cd" into another directory. This is very helpfu for keeping track of where you are.
 
 What if we want to move back up and out of this directory and to our top level 
 directory? Can we type `cd shell_data`? Try it and see what happens.
@@ -109,11 +111,12 @@ prints the contents of `/home`.
 > > ~~~
 > > {: .bash}
 > > 
-> > The `-a` option is short for `all` and says that it causes `ls` to "not ignore
+> > The `--all` option causes `ls` to "not ignore
 > > entries starting with ." This is the option we want. 
+> > The short form is `-a`.
 > > 
 > > ~~~
-> > $ ls -a
+> > $ ls --all
 > > ~~~
 > > {: .bash}
 > > 
@@ -143,6 +146,10 @@ prints the contents of `/home`.
 > > {: .output}
 > > 
 > > The name of the text file is `youfoundit.txt`.
+> > 
+> > The `ls` command comes with many other useful options, such as sorting by size or modification time.
+> > Take a moment to peruse some of these options. Don't worry about remembering the flags, just make a 
+> > mental note of what is possible, in case you need it in the future.
 > {: .solution}
 {: .challenge}
 
@@ -226,15 +233,15 @@ $ pwd
 You will see: 
 
 ~~~
-/home/dcuser
+/home/user
 ~~~
 {: .output}
 
 This is the full name of your home directory. This tells you that you
-are in a directory called `dcuser`, which sits inside a directory called
+are in a directory called `user` (where `user` is your Garvan ID), which sits inside a directory called
 `home` which sits inside the very top directory in the hierarchy. The
 very top of the hierarchy is a directory called `/` which is usually
-referred to as the *root directory*. So, to summarize: `dcuser` is a
+referred to as the *root directory*. So, to summarize: `user` is a
 directory in `home` which is a directory in `/`. More on `root` and
 `home` in the next section.
 
@@ -265,6 +272,13 @@ These two commands have the same effect, they both take us to the `.hidden` dire
 The first uses the absolute path, giving the full address from the home directory. The
 second uses a relative path, giving only the address from the working directory. A full
 path always starts with a `/`. A relative path does not.
+
+Take a moment to let that sink in. Two of the most common problems with specifying file paths
+are 1) forgetting to start an absolute path with `/` and 2) starting a path with `/` when you
+actually wanted to specify a relative path. The best way to avoid these errors is to rely
+on tab completion every time you enter a path. It's quicker, you'll avoid typos AND you will
+avoid confusion between absolute and relative paths (because tab completion won't work if
+you use `/` incorrectly, reminding you to double-check).
 
 A relative path is like getting directions from someone on the street. They tell you to
 "go right at the stop sign, and then turn left on Main Street". That works great if
@@ -318,7 +332,7 @@ home directory. Dealing with the `home` directory is very common.
 The tilde character, `~`, is a shortcut for your home directory.
 In our case, the `root` directory is __two__ levels above our
 `home` directory, so `cd` or `cd ~` will take you to
-`/home/dcuser` and `cd /` will take you to `/`. Navigate to the
+`/home/user` and `cd /` will take you to `/`. Navigate to the
 `shell_data` directory:
 
 ~~~
@@ -335,7 +349,7 @@ $ ls ~
 {: .bash}
 
 ~~~
-R  r_data  shell_data
+bio  course  data  r_data  shell_data
 ~~~
 {: .output}
 
