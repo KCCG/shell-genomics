@@ -333,7 +333,16 @@ $ wc -l bad_reads.txt
 > `grep` call because it matches the `*.fastq` pattern. Be careful with this as it can lead to
 > some unintended results.
 > 
+> Another alternative would be to use the ".fastq" extension, but to save the results in a different directory.
+> Separating raw data from processed data is generally a good thing.
+>
+> ~~~
+> grep -B1 -A2 NNNNNNNNNN *.fastq > reults/bad_reads.fastq
+> ~~~
+> {: .bash}
 {: .callout}
+
+## Pipes
 
 Since we might have multiple different criteria we want to search for, 
 creating a new output file each time has the potential to clutter up our workspace. We also
