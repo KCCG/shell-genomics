@@ -435,7 +435,34 @@ do all sorts of exciting things with your data!
 None of the command line programs we've been learning
 do anything all that impressive on their own, but when you start chaining
 them together, you can do some really powerful things very
-efficiently. 
+efficiently. Here are a couple of examples.
+
+Remember how you can use the `history` command to view the entire history of every command that you've ever typed?
+Well, before you know that list of commands will be hundreds or even thousands of lines long. Piping the **output** of
+`history` into the `less` command makes it much easier to navigate. You can scroll down with the `space` key, jump to the
+end of the list with `g` or search for key words with `/`. 
+
+~~~
+$ history | less
+~~~
+{: .bash}
+
+Another example is searching your command history for particular words, and then displaying all the matching records. You
+can achieve this by piping `history` through `grep`. Can't remember where you moved that file, or even exactly what it was called? 
+The following command will show you all of the "mv" commands that you have ever entered.
+
+~~~
+$ history | grep mv
+~~~
+{: .bash}
+
+You can really power up this last trick by typing **comments** into the shell. `bash` treats the `#`
+character as a comment character. Any text on a line after a `#` is ignored by
+bash when evaluating the text as code. Comments are used extensively in scripts (see next chapter) to document the code,
+but you can also type comments directly into the command line as a free text record of what you just did.
+The comment won't be executed as code, but it will be saved in the history log. 
+This allows you to search back through your history using free text, *even when you can't remember the exact name of the command that you used*.
+There is no need to document every `ls` or `cd` that you do, but making comments for important steps is a good practice.
 
 > # File manipulation and more practices with pipes
 > 
@@ -674,8 +701,3 @@ $ for filename in *.txt
 > {: .solution}
 {: .challenge}
 
-## Comments
-
-`bash` treats the `#`
-character as a comment character. Any text on a line after a `#` is ignored by
-bash when evaluating the text as code.
