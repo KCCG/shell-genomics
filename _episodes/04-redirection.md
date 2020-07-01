@@ -434,6 +434,89 @@ efficiently.
 > 
 {: .callout}
 
+## Variables
+
+As well as using the shell to issue commands, we can also do some basic programming to automate tasks. Actually, shell programming can
+get quite sophisticated, but once the level of complexity crosses a certain threshold you are probably better off using a general-purpose
+programming language such as Python. Different people have different opinions about exactly where that threshold lies, and it partly 
+depends on your skill level. 
+
+A key concept in programming is the idea of a "variable". You can think of variables as "named buckets" that contain values. To use them,
+we have to learn to put values in and take values out. Let's start with the latter.
+
+A bunch of variables are created automatically when you first log in. These variables are stored in what is known as the "shell environment",
+and they are available without you having to do anything at all. The following commands all include a variable, indicated by the `$`.
+See if you can figure out what kind of information each variable stores:
+
+~~~
+$ echo $USER
+$ echo $SHELL
+$ echo $HOSTNAME
+$ ls $HOME
+~~~
+{: .bash}
+
+The `$` tells the shell interpreter to treat the **variable** as a variable name and substitute its value in its place, 
+rather than treat it as text or an external command. In shell programming, this is usually called "expanding" the variable.
+
+There are dozens of environment variables, but probably only a handful that you are like to use regularly. 
+You can use the `printenv` command to see a full list, but because there are so many we'll pipe the results through `less`. 
+(Remember to press "space" to scroll and press "q" to exit `less` when you finish.)
+
+~~~
+$ printenv | less
+~~~
+{: .bash}
+
+More interestingly, you can also create your **own** variables. The basic format is `*variable_name*=*value*`, as shown in the examples below.
+Note that there is **no** `$` in front of the name when you **define** a variable and there is no space on either side of the `=` sign. Also,
+there are no spaces inside the variable name. If you need to use spaces in a value, enclose the whole value in quotes `"`. 
+Although it is conventional to use ALL CAPS to define **environment** variables, user-defined variable names can be upper or lower case,
+or any mix of both. Variable names are case-sensitive though, so make sure that you match the case used when the variable was defined.
+
+~~~
+$ foo=abc
+$ echo $foo
+$ bar=123
+$ echo $bar
+$ Greeting="Good morning"
+$ echo Greeting
+~~~
+{: .bash}
+
+Variables are shell programming are a lot more limited than other programming languages that you may be familiar with. Still, there are
+a few subtleties that you will need to wrap your head around before too long, so I recommend reading a thorough discussion 
+(such as [this tutorial](https://ryanstutorials.net/bash-scripting-tutorial/bash-variables.php)) either now or next time you start 
+to get confused about variables. Best to get it straight early on.
+
+We will tackle one or subtelties now. Sometimes, we want to expand a variable without any whitespace to its right.
+Suppose we have a variable named `foo` that contains the text `abc`, and would
+like to expand `foo` to create the text `abcEFG`.
+
+~~~
+$ foo=abc
+$ echo foo is $foo
+foo is abc
+$ echo foo is $fooEFG      
+foo is
+~~~
+{: .bash}
+
+The interpreter is trying to expand a variable named `fooEFG`, which (probably)
+doesn't exist. We can avoid this problem by enclosing the variable name in 
+braces (`{` and `}`, sometimes called "squiggle braces"). 
+
+~~~
+$ foo=abc
+$ echo foo is $foo
+foo is abc
+$ echo foo is ${foo}EFG      # now it works!
+foo is abcEFG
+~~~
+{: .bash}
+
+Personally, I am in the habit of (almost) always using the `${*variable*}` construction, at least when the variable reference
+is part of a more complex expression. You can get away with plain old `$` when the variable stands alone.
 
 ## Writing for loops
 
@@ -445,38 +528,11 @@ files. We will use loops for these purposes in subsequent analyses, but will cov
 When the shell sees the keyword `for`, it knows to repeat a command (or group of commands) once for each item in a list. 
 Each time the loop runs (called an iteration), an item in the list is assigned in sequence to the **variable**, and 
 the commands inside the loop are executed, before moving on to the next item in the list. Inside the loop, we call for 
-the variable's value by putting `$` in front of it. The `$` tells the shell interpreter to treat the **variable**
-as a variable name and substitute its value in its place, rather than treat it as text or an external command. In shell programming, this is usually called "expanding" the variable.
+the variable's value by putting `$` in front of it. 
 
-Sometimes, we want to expand a variable without any whitespace to its right.
-Suppose we have a variable named `foo` that contains the text `abc`, and would
-like to expand `foo` to create the text `abcEFG`.
-
-~~~
-$ foo=abc
-$ echo foo is $foo
-foo is abc
-$ echo foo is $fooEFG      # doesn't work
-foo is
-~~~
-{: .bash}
-
-The interpreter is trying to expand a variable named `fooEFG`, which (probably)
-doesn't exist. We can avoid this problem by enclosing the variable name in 
-braces (`{` and `}`, sometimes called "squiggle braces"). `bash` treats the `#`
-character as a comment character. Any text on a line after a `#` is ignored by
-bash when evaluating the text as code.
-
-~~~
-$ foo=abc
-$ echo foo is $foo
-foo is abc
-$ echo foo is ${foo}EFG      # now it works!
-foo is abcEFG
-~~~
-{: .bash}
-
-Let's write a for loop to show us the first two lines of the fastq files we downloaded earlier. You will notice the shell prompt changes from `$` to `>` and back again as we were typing in our loop. The second prompt, `>`, is different to remind us that we haven’t finished typing a complete command yet. A semicolon, `;`, can be used to separate two commands written on a single line.
+Let's write a for loop to show us the first two lines of the fastq files we downloaded earlier. You will notice the shell 
+prompt changes from `$` to `>` and back again as we were typing in our loop. The second prompt, `>`, is different to remind 
+us that we haven’t finished typing a complete command yet. A semicolon, `;`, can be used to separate two commands written on a single line.
 
 ~~~
 $ cd ../untrimmed_fastq/
@@ -608,3 +664,9 @@ $ for filename in *.txt
 >>
 > {: .solution}
 {: .challenge}
+
+## Comments
+
+`bash` treats the `#`
+character as a comment character. Any text on a line after a `#` is ignored by
+bash when evaluating the text as code.
