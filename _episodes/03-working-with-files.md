@@ -74,7 +74,7 @@ $ ls /usr/bin/*.sh
 {: .bash}
 
 ~~~
-/usr/bin/amuFormat.sh  /usr/bin/gettext.sh  /usr/bin/gvmap.sh
+/usr/bin/amuFormat.sh  /usr/bin/lesspipe.sh  /usr/bin/pv.sh etc. etc.
 ~~~
 {: .output}
 
@@ -360,6 +360,10 @@ A!@B!BBB@ABAB#########!!!!!!!######
 ~~~
 {: .output}
 
+Genomic data files are often huge. If you try to open a huge file in Excel or a text editor it may take ages to load -- that's if it doesn't crash completely.
+Being able to inspect the content of a data file quickly and easily with `head` and `tail` is extremely useful. In particular, many genomic data formats start
+with a few lines of "header" information describing the data, so often the information you are looking for will be found in these first few lines.
+
 
 ## Details on the FASTQ format
 
@@ -574,7 +578,12 @@ If you enter `n` (for no), the file will not be deleted. If you enter `y`, you w
 measure of security, as there is one more step between us and deleting our data files.
 
 **Important**: The `rm` command permanently removes the file. Be careful with this command. It doesn't
-just nicely put the files in the Trash. They're really gone.
+just nicely put the files in the Trash. They're really gone. As a safety precaution you can simulate the familiar behaviour
+of the trash can on Mac and Windows machines by creating a folder in your home directory called `trash`. You can then
+"delete" files by using the `mv` command to move them to this folder first. 
+Later you can permanently delete these files at your leisure -- after first reviewing the files to make sure that you aren't 
+deleting anything by mistake. 
+This is particularly useful when using wildards (such as `*`) to specify which files to delete.
 
 By default, `rm` will not delete directories. You can tell `rm` to
 delete a directory using the `-r` (recursive) option. Let's delete the backup directory
