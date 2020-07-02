@@ -249,9 +249,9 @@ You will learn more about writing scripts in [a later lesson](https://datacarpen
 
 ## Moving and Downloading Data
 
-So far, we've worked with data that is pre-loaded on the instance in the cloud. Usually, however,
-most analyses begin with moving data onto the instance. Below we'll show you some commands to 
-download data onto your instance, or to move data between your computer and the cloud.
+So far, we've worked with data that is alread on the cluster. Usually, however,
+most analyses begin with moving data onto the cluster. Below we'll show you some commands to 
+download data onto the cluster, or to move data between your computer and the cluster.
 
 ### Getting data from the cloud
 
@@ -266,25 +266,22 @@ the same behaviour, but they are mostly interchangeable.
  - ``cURL`` is a pun, it is supposed to be read as "see URL", so its basic function is
  to *display* webpages or data at a web address.
 
-Which one you need to use mostly depends on your operating system, as most computers will
-only have one or the other installed by default.
+Roughly speaking, `wget` is easier to use but `curl` is more flexible. 
+Both of these tools are available on Wolfpack, but not necessarily on your laptop,
+as most operating systems will only have one or the other installed by default.
+A quick way to check which tools you have is with `which`.
+``which`` is a BASH program that looks through everything you have
+installed, and tells you what folder it is installed to. If it can't
+find the program you asked for, it returns nothing, i.e. gives you no
+results.
 
-Let's say you want to download some data from Ensembl. We're going to download a very small
-tab-delimited file that just tells us what data is available on the Ensembl bacteria server.
-Before we can start our download, we need to know whether we're using ``curl`` or ``wget``.
-
-To see which program you have, type:
- 
+Check by using the following commands, first on the cluster then again on a terminal
+session that is **not** connected to the cluster.
 ~~~
 $ which curl
 $ which wget
 ~~~
 {: .bash}
-
-``which`` is a BASH program that looks through everything you have
-installed, and tells you what folder it is installed to. If it can't
-find the program you asked for, it returns nothing, i.e. gives you no
-results.
 
 On Mac OSX, you'll likely get the following output:
 
@@ -309,9 +306,13 @@ $
 {: .output}
 
 This output means that you have ``curl`` installed, but not ``wget``.
+If you want to install `wget` on your Mac, then use `brew install wget`.
+This assumes that you already installed [Homebrew](https://brew.sh/) as part of your preparation of the course.
+If not, then do it now.
 
-Once you know whether you have ``curl`` or ``wget``, use one of the
-following commands to download the file:
+Let's say you want to download some data from Ensembl. We're going to download a very small
+tab-delimited file that just tells us what data is available on the Ensembl bacteria server.
+We can either use `wget` ...
 
 ~~~
 $ cd
@@ -319,7 +320,7 @@ $ wget ftp://ftp.ensemblgenomes.org/pub/release-37/bacteria/species_EnsemblBacte
 ~~~
 {: .bash}
 
-or
+or `curl` ...
 
 ~~~
 $ cd
@@ -333,9 +334,9 @@ download the page instead of showing it to us **and** specifies that it should s
 file using the same name it had on the server: species_EnsemblBacteria.txt
 
 It's important to note that both ``curl`` and ``wget`` download to the computer that the
-command line belongs to. So, if you are logged into AWS on the command line and execute
-the ``curl`` command above in the AWS terminal, the file will be downloaded to your AWS
-machine, not your local one.
+command line belongs to. So, if you are logged into the cluster and execute
+the ``curl`` command above in the terminal then the file will be downloaded to the cluster, 
+not your local machine.
 
 ### Moving files between your laptop and your instance
 
