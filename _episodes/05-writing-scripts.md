@@ -72,7 +72,19 @@ The text at the bottom of the screen shows the keyboard shortcuts for performing
 > [Gedit](http://projects.gnome.org/gedit/). On Windows, you may wish to
 > use [Notepad++](http://notepad-plus-plus.org/).  Windows also has a built-in
 > editor called `notepad` that can be run from the command line in the same
-> way as `nano` for the purposes of this lesson.  
+> way as `nano` for the purposes of this lesson. 
+> If you are planning to take a deep dive into bioinformatics and computational
+> biology then it is probably worth your while learning `vim`. `nano` will be fine
+> for now but make a mental bookmark to learn `vim`.
+>
+> If you are going to draft a long text file from scratch, then most people
+> find it easier to use a graphical text editor. Two excellent options are
+> [Atom](https://atom.io/) and [Sublime](https://www.sublimetext.com/).
+> These editors provide syntax highlighting and code completion and many other useful features.
+> You can also use `sshfs` with Atom or Sublime to save your files directly to the cluster.
+> 
+> Despite the advantages of these graphical editors, there are many situations where
+> it is extremely helpful to be able to create or edit a text file from the terminal.
 >
 > No matter what editor you use, you will need to know where it searches
 > for and saves files. If you start it from the shell, it will (probably)
@@ -108,6 +120,14 @@ return to the shell.
 > In `nano`, along the bottom of the screen you'll see `^G Get Help ^O WriteOut`.
 > This means that you can use <kbd>Ctrl</kbd>-<kbd>G</kbd> to get help and <kbd>Ctrl</kbd>-<kbd>O</kbd> to save your
 > file.
+> 
+> Press <kbd>Ctrl</kbd>-<kbd>G</kbd> to view the inbuilt help. Then press <kbd>Ctrl</kbd>-<kbd>V</kbd> to scroll down.
+> You will see key combinations for all sorts of useful functions, such as scrolling through the document, jumping to
+> the beginning or end of the line, searching for phrases, copying and pasting text, etc. 
+> Note that if you are using a Mac the "meta" key is the <kbd>esc</kbd> key. For key combinations such as `M-/` (which
+> takes you to the last line in the file, tap or hold <kbd>esc</kbd>, then tap <kbd>/</kbd>.
+Tap <kbd>Ctrl</kbd>
+> Press <kbd>Ctrl</kbd>-<kbd>X</kbd> to exit the help page and return to the editor.
 {: .callout}
 
 Now you've written a file. You can take a look at it with `less` or `cat`, or open it up again and edit it with `nano`.
@@ -141,14 +161,15 @@ $ nano bad-reads-script.sh
 Bad reads have a lot of N's, so we're going to look for  `NNNNNNNNNN` with `grep`. We want the whole FASTQ record, so we're also going to get the one line above the sequence and the two lines below. We also want to look in all the files that end with `.fastq`, so we're going to use the `*` wildcard.
 
 ~~~
-grep -B1 -A2 -h NNNNNNNNNN *.fastq | grep -v '^--' > scripted_bad_reads.txt
+grep -B1 -A2 --no-filename NNNNNNNNNN *.fastq | grep --invert-match '^--' > scripted_bad_reads.txt
 ~~~
 {: .bash}
 
 > ## Custom `grep` control
 >
-> We introduced the `-v` option in [the previous episode](http://www.datacarpentry.org/shell-genomics/04-redirection/), now we 
-> are using `-h` to "Suppress the prefixing of file names on output" according to the documentation shown by `man grep`.
+> We introduced the `--invert-match` option in [the previous episode](http://www.datacarpentry.org/shell-genomics/04-redirection/), now we 
+> are using `--no-filename` to "Suppress the prefixing of file names on output" according to the documentation shown by `man grep`.
+> The short form of `--no-filename` is `-h`.
 > 
 {: .callout}
 
