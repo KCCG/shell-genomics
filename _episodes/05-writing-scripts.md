@@ -338,25 +338,25 @@ command line belongs to. So, if you are logged into the cluster and execute
 the ``curl`` command above in the terminal then the file will be downloaded to the cluster, 
 not your local machine.
 
-### Moving files between your laptop and your instance
+### Moving files between your laptop and the cluster
 
-What if the data you need is on your local computer, but you need to get it *into* the
-cloud? There are also several ways to do this, but it's *always* easier
+What if the data you need is on your local computer, but you need to copy it to the cluster? 
+There are also several ways to do this, but it's *always* easier
 to start the transfer locally. **This means if you're typing into a terminal, the terminal
-should not be logged into your instance, it should be showing your local computer. If you're
-using a transfer program, it needs to be installed on your local machine, not your instance.**
+should not be logged into the cluster, it should be showing your local computer. If you're
+using a transfer program, it needs to be installed on your local machine, not on the cluster.**
 
-## Transferring Data Between your Local Machine and the Cloud
+## Transferring Data Between your Local Machine and the Cluster
 
 These directions are platform specific, so please follow the instructions for your system:
 
-**Please select the platform you wish to use for the exercises: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="unix" id="id_unix" selected> UNIX </option><option value="win" id="id_win" selected> Windows </option></select>**
+**Please select the platform you wish to use for the exercises: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="unix" id="id_unix" selected> Linux/Mac </option><option value="win" id="id_win" selected> Windows </option></select>**
 
 
 
 <div id="div_unix" style="display:block" markdown="1">
 
-### Uploading Data to your Virtual Machine with scp
+### Uploading Data to the cluster with scp
 
 `scp` stands for 'secure copy protocol', and is a widely used UNIX tool for moving files
 between computers. The simplest way to use `scp` is to run it in your local terminal,
@@ -368,32 +368,38 @@ scp <file I want to move> <where I want to move it>
 {: .bash}
 
 Note that you are always running `scp` locally, but that *doesn't* mean that
-you can only move files from your local computer. In order to move a file from your local computer to an AWS instance, the command would look like this:
+you can only move files from your local computer. 
+In order to move a file from your local computer to the cluster, 
+the command would look like this:
 
 ~~~
-$ scp <local file> <AWS instance>
+$ scp <local file> <host>:<path>
 ~~~
 {: .bash}
 
 To move it back to your local computer, you re-order the `to` and `from` fields:
 
 ~~~
-$ scp <AWS instance> <local file>
+$ scp <host>:<path> <local file>
 ~~~
 {: .bash}
 
 #### Uploading Data to your Virtual Machine with scp
 
-Open the terminal and use the `scp` command to upload a file (e.g. local_file.txt) to the dcuser home directory:
+Open the terminal and use the `scp` command to upload a file (e.g. local_file.txt) 
+to your home directory. This command makes a connection to the cluster, so you will need to be
+either plugged into the ethernet in the Garvan building or connected via the VPN.
+Don't forget to swap **both** instances of "user" to your Garvan ID.
 
 ~~~
-$  scp local_file.txt dcuser@ip.address:/home/dcuser/
+$  scp local_file.txt user@dice01:/home/user/
 ~~~
 {: .bash}
 
-#### Downloading Data from your Virtual Machine with scp
+#### Downloading Data from the cluster with scp
 
-Let's download a text file from our remote machine. You should have a file that contains bad reads called ~/shell_data/scripted_bad_reads.txt.
+Let's download a text file from our remote machine. 
+You should have a file that contains bad reads called ~/shell_data/scripted_bad_reads.txt.
 
 **Tip:** If you are looking for another (or any really) text file in your home directory to use instead, try:
 
@@ -403,16 +409,24 @@ $ find ~ -name *.txt
 {: .bash}
 
 
-Download the bad reads file in ~/shell_data/scripted_bad_reads.txt to your home ~/Download directory using the following command **(make sure you substitute dcuser@ip.address with your remote login credentials)**:
+Download the bad reads file in ~/shell_data/scripted_bad_reads.txt to your home ~/Download directory using the following command 
+**(make sure you substitute user@dice01 with your login credentials)**:
 
 ~~~
-$ scp dcuser@ip.address:/home/dcuser/shell_data/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads
+$ scp user@dice01:/home/user/shell_data/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads
 ~~~
 {: .bash}
 
 Remember that in both instances, the command is run from your local machine, we've just flipped the order of the to and from parts of the command.
 </div>
 
+A powerful alternative to `scp` is `rsync`. This is particularly useful for large files, because you can
+(optionally) view the progress of the file transfer, and because `rsync` can resume transfers that have
+been interrupted without having to start all over again. Use `man rsync` to view options or Google for examples.
+
+You can also use `rsync` and `scp` to copy files between two different remote servers.
+But when copying files back and forth between your laptop and the cluster it is probably easier
+to use `sshfs` to mount a cluster volume and then use familiar drag and drop operations.
 
 <div id="div_win" style="display:block" markdown="1">
 
@@ -434,23 +448,30 @@ go to your start menu/search enter the term **'cmd'**; you will be able to start
 ~~~
 {: .bash}
 
-5. Locate a file on your computer that you wish to upload (be sure you know the path). Then upload it to your remote machine **(you will need to know your AMI instance address (which starts with ec2), and login credentials)**. You will be prompted to enter a password, and then your upload will begin. **(make sure you substitute 'your-pc-username' for your actual pc username and 'ec2-54-88-126-85.compute-1.amazonaws.com' with your AMI instance address)**
+5. Locate a file on your computer that you wish to upload (be sure you know the path). 
+Then upload it to your remote machine **(you will need to know your AMI instance address (which starts with ec2), 
+and login credentials)**. You will be prompted to enter a password, and then your upload will begin. 
+**(make sure you substitute 'your-pc-username' for your actual pc username and 'user' for your Garvan ID)**
 
 ~~~
-C:\User\your-pc-username\Downloads> pscp.exe local_file.txt dcuser@ec2-54-88-126-85.compute-1.amazonaws.com:/home/dcuser/
+C:\User\your-pc-username\Downloads> pscp.exe local_file.txt user@dice01:/home/user/
 ~~~
 {: .bash}
 
 ### Downloading Data from your Virtual Machine with PSCP
 
 1. Follow the instructions in the Upload section to download (if needed) and access the *PSCP* program (steps 1-3)
-2. Download the text file using the following command **(make sure you substitute 'your-pc-username' for your actual pc username and 'ec2-54-88-126-85.compute-1.amazonaws.com' with your AMI instance address)**
+2. Download the text file using the following command **(make sure you substitute 'your-pc-username' for your actual pc username and 'user' for your Garvan ID)**
+
 
 ~~~
-C:\User\your-pc-username\Downloads> pscp.exe dcuser@ec2-54-88-126-85.compute-1.amazonaws.com:/home/dcuser/shell_data/untrimmed_fastq/scripted_bad_reads.txt.
+C:\User\your-pc-username\Downloads> pscp.exe user@dice01:/home/user/shell_data/untrimmed_fastq/scripted_bad_reads.txt.
 
 C:\User\your-pc-username\Downloads
 ~~~
 {: .bash}
+
+The are graphical tools for transferring files as well, such as `sshfs-win` and [Filezilla](https://filezilla-project.org/).
+`sshfs-win` can't follow symbolic links.
 
 </div>
