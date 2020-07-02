@@ -114,14 +114,14 @@ CNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 > that contains a match.
 > 
 > > ## Solution  
-> > 1. `grep -B1 GNATNACCACTTCC SRR098026.fastq` 
+> > 1. `grep --before-context=1 GNATNACCACTTCC SRR098026.fastq` 
 > > 
 > >     ```
 > >     @SRR098026.245 HWUSI-EAS1599_1:2:1:2:801 length=35
 > >     GNATNACCACTTCCAGTGCTGANNNNNNNGGGATG
 > >     ```
 > > 
-> > 2. `grep -B1 AAGTT *.fastq`
+> > 2. `grep --before-context=1 AAGTT *.fastq`
 > >
 > >     ```
 > > SRR097977.fastq-@SRR097977.11 209DTAAXX_Lenski2_1_7:8:3:247:351 length=36
@@ -175,7 +175,8 @@ $ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq > bad_reads.txt
 ~~~
 {: .bash}
 
-(Here we are using the short forms of the `--before-context` and `--after-context` options, namely `-B` and `-A`.)
+(Here and below we are using the short forms of the `--before-context` and `--after-context` options, namely `-B` and `-A`.
+Note that you don't need an `=` with the short form, but inappropriate spaces will confuse the shell interpreter in both cases.)
 
 > ## File extensions
 > 
@@ -464,6 +465,9 @@ The comment won't be executed as code, but it will be saved in the history log.
 This allows you to search back through your history using free text, *even when you can't remember the exact name of the command that you used*.
 There is no need to document every `ls` or `cd` that you do, but making comments for important steps is a good practice.
 
+We'll see a few more examples of piping output through `less` and `grep`, but the idea generalises quite well. 
+Anytime a command spits out more output than you can scan easily, consider using pipes with `less`, `grep` or maybe `head` or `tail`.
+
 > # File manipulation and more practices with pipes
 > 
 > To practice a bit more with the tools we’ve added to our tool kit so far and learn a few extra ones you can follow [this extra lesson](https://datacarpentry.org/shell-genomics/Extra_lesson/index.html) which uses the SRA metadata file. 
@@ -504,9 +508,9 @@ $ printenv | less
 ~~~
 {: .bash}
 
-More interestingly, you can also create your **own** variables. The basic format is `*variable_name*=*value*`, as shown in the examples below.
+More interestingly, you can also create your **own** variables. The basic format is `variable_name=value`, as shown in the examples below.
 Note that there is **no** `$` in front of the name when you **define** a variable and there is no space on either side of the `=` sign. Also,
-there are no spaces inside the variable name. If you need to use spaces in a value, enclose the whole value in quotes `"`. 
+there are no spaces inside the variable name. If you need to use spaces in a value, enclose the whole value in quotes (`"` or `'`). 
 Although it is conventional to use ALL CAPS to define **environment** variables, user-defined variable names can be upper or lower case,
 or any mix of both. Variable names are case-sensitive though, so make sure that you match the case used when the variable was defined.
 
@@ -523,9 +527,9 @@ $ echo Greeting
 Variables are shell programming are a lot more limited than other programming languages that you may be familiar with. Still, there are
 a few subtleties that you will need to wrap your head around before too long, so I recommend reading a thorough discussion 
 (such as [this tutorial](https://ryanstutorials.net/bash-scripting-tutorial/bash-variables.php)) either now or next time you start 
-to get confused about variables. Best to get it straight early on.
+to get confused about variables. Best to get it sorted out in your mind early on.
 
-We will tackle one or subtelties now. Sometimes, we want to expand a variable without any whitespace to its right.
+We will tackle a few subtleties now. Sometimes, we want to expand a variable without any whitespace to its right.
 Suppose we have a variable named `foo` that contains the text `abc`, and would
 like to expand `foo` to create the text `abcEFG`.
 
@@ -551,8 +555,30 @@ foo is abcEFG
 ~~~
 {: .bash}
 
-Personally, I am in the habit of (almost) always using the `${*variable*}` construction, at least when the variable reference
+Personally, I am in the habit of (almost) always using the `${variable}` construction, at least when the variable reference
 is part of a more complex expression. You can get away with plain old `$` when the variable stands alone.
+
+## Saving the output of commands as variables
+
+The `$` symbol is a bit overused in `bash`. We've seen it used for the command prompt, and now also as a way to extract the value of a variable.
+You can also use it with the `$( )` pattern to execute a command and then either save the result in a variable or use the result as part of a larger expression. 
+That may sound a little abstract -- a concrete example should make it clearer:
+
+~~~
+$ file_list=$( ls ~/shell_data )
+$ echo $file_list
+~~~
+{: .bash}
+
+In the first line above we are executing a command inside the `$( )` pattern, in this case the `ls` command listing the content of the `shell_data` directory.
+The output of this command is a string of text, and this string is stored as the value of the variable `file_list`. 
+We can then extract this value later. Here we just `echo` the value to the screen, but you can do much more interesting things as we will see below.
+
+The trick to deciphering `$` is to look at the immediate context:
+- `$` in front of a variable name **extracts** the value of that variable
+- `$` together with `{ }` in a `${variable}` pattern also **extracts** the value of that variable
+- `$` together with `( )` in a `${ command }` pattern first **runs** the command and then uses the **result** of the command as part of a larger expression. The larger expression could be a variable assignment (as in the example above) but not necessarily (as we shall see below).
+
 
 ## Writing for loops
 
@@ -649,7 +675,11 @@ $ for filename in *.fastq
 ~~~
 {: .bash}
 
-
+Let's unpack `name=$(basename ${filename} .fastq)`. The first `$` is actually part of a `$( command )` pattern. 
+In this case the command is `basename ${filename} .fastq`. 
+So the second `$` is part of a `${variable}` pattern. 
+The value of the `filename` variable is "expanded" into the `basename` command before the command is executed.
+Finally, the result of the command is stored in the `name` variable.
 
 > ## Exercise
 >
