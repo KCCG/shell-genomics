@@ -558,7 +558,7 @@ foo is abcEFG
 Personally, I am in the habit of (almost) always using the `${variable}` construction, at least when the variable reference
 is part of a more complex expression. You can get away with plain old `$` when the variable stands alone.
 
-## Saving the output of commands as variables
+## Using the output of commands with $( )
 
 The `$` symbol is a bit overused in `bash`. We've seen it used for the command prompt, and now also as a way to extract the value of a variable.
 You can also use it with the `$( )` pattern to execute a command and then either save the result in a variable or use the result as part of a larger expression. 
