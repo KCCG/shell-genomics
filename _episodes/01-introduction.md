@@ -98,7 +98,7 @@ Note2: If you don't know what I'm talking about, then don't worry -- the next st
 Type the following command after the prompt. Take care with the spelling, including capitalisation.
 
 ~~~
-$ source /share/ScratchGeneral/johree/course/setup_dot.sh
+$ source /share/ScratchGeneral/johree/course_materials/setup_dot.sh
 ~~~
 {: .bash}
 
@@ -135,7 +135,7 @@ pressing Tab once won't do anything, but if you press Tab a second time you will
 type another letter or two until the first part is unique and then press Tab again.
 
 ~~~
-$ source /share/ScratchGeneral/johree/course/setup.sh
+$ source /share/ScratchGeneral/johree/course_materials/setup.sh
 ~~~
 {: .bash}
 
