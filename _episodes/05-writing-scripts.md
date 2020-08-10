@@ -384,7 +384,7 @@ $ scp <host>:<path> <local file>
 ~~~
 {: .bash}
 
-#### Uploading Data to your Virtual Machine with scp
+#### Uploading Data to the cluster with scp
 
 Open the terminal and use the `scp` command to upload a file (e.g. local_file.txt) 
 to your home directory. This command makes a connection to the cluster, so you will need to be
@@ -449,8 +449,7 @@ go to your start menu/search enter the term **'cmd'**; you will be able to start
 {: .bash}
 
 5. Locate a file on your computer that you wish to upload (be sure you know the path). 
-Then upload it to your remote machine **(you will need to know your AMI instance address (which starts with ec2), 
-and login credentials)**. You will be prompted to enter a password, and then your upload will begin. 
+Then upload it to your remote machine. You will be prompted to enter a password, and then your upload will begin. 
 **(make sure you substitute 'your-pc-username' for your actual pc username and 'user' for your Garvan ID)**
 
 ~~~
