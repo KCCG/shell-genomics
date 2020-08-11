@@ -538,7 +538,11 @@ $ nano ~/.bash_aliases
 
 The pay off for the extra work of editing this file is that these alias definitions are now **portable**.
 By copying this file to another Linux environment (such as your Mac or the National Compute Infrastructure in Canberra) you can take all of your favourite shortcuts with you.  
-This is just one of many ways that you can customise your work environment to suit your habits and preferences, reducing tedium and making you more efficient.
+This is just one of many ways that you can customise your work environment to suit your habits and preferences, reducing tedium and making you more efficient.  
+
+Feel free to edit ".bash_aliases" to change the definitions to something easier for you to remember.
+For example, you might prefer "history_search" rather than "hgrep", or you might have different preferences for how you like your files listed.
+(Alphabetical order? Most recently modified first? Last? Consult the `man` page for the options.)
 
 ## Variables
 
