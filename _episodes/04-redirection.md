@@ -356,7 +356,7 @@ This is probably not a key on
 your keyboard you use very much, so let's all take a minute to find that key. For the standard QWERTY keyboard
 layout, the `|` character can be found using the key combination
 
-- <kbd>Shift</kbd>+<`\`
+- <kbd>Shift</kbd>+`\`
 
 What `|` does is take the output that is scrolling by on the terminal and uses that output as input to another command. 
 When our output was scrolling by, we might have wished we could slow it down and
@@ -473,6 +473,72 @@ Anytime a command spits out more output than you can scan easily, consider using
 > To practice a bit more with the tools we’ve added to our tool kit so far and learn a few extra ones you can follow [this extra lesson](https://datacarpentry.org/shell-genomics/Extra_lesson/index.html) which uses the SRA metadata file. 
 > 
 {: .callout}
+
+## Aliases
+
+Some combinations like `history | grep` are so useful that you will find yourself using them all the time.
+Rather than type them out each time, you can define an `alias` as a kind of a short hand.
+
+~~~
+$ alias hgrep="history | grep"
+~~~
+
+This code snippet defines a new alias.
+After typing this snippet at the command prompt, you can now simply type "hgrep mv" instead of "history | grep mv".
+The result will be the same.
+(In this case, searching for all of the times that you have used the `mv` command.)
+
+Defining aliases is also handy for commands with a lot of options that are hard to remember (but where you generally use the same options each time).
+For example, when I list the files in a directory I usually like to see **all** the files, including any hidden files.
+I also like to see subdirectories listed on top, and extra information such as permissions etc.
+I like to see file sizes displayed in human readable format, and I like directories, executablees and symbolic links to be "classified" using symbols after the file name.
+I can achieve this with the `ls` command the following options:
+
+~~~
+$ ls -AlhF --group-directories-first
+~~~
+
+**Or** I can define an alias to save my typing all that every time. 
+
+~~~
+$ alias ll="ls -AlhF --group-directories-first"
+$ ll
+~~~
+
+If you type "alias" you will see a list of the aliases that have already been defined.
+Some of these won't make sense yet, but by the end of the course you should be able to decipher all of them.
+
+~~~
+$ alias
+
+alias ll="ls -AlhF --directories-first"
+alias la="ls -aF"
+alias cdscr="cd /share/ScratchGeneral/${USER}" 
+alias hgrep="history | grep"
+alias mods="module avail 2>&1 | less"
+alias modgrep="module avail 2>&1 | grep"
+alias coursehome="cd /share/ScratchGeneral/${USER}/course"
+alias shrub="tree -L 3"
+~~~
+
+All of the alias definitions are in the form "alias A=B".
+Once an alias has been defined, you can just type "A" instead of "B".  
+
+Unfortunately, if you define an alias directly at the command line it is only valid until you log out.
+So where did these aliases come from?
+Answer: they are defined in a file called ".bash_aliases" in your home directory.
+(Note the dot at the start of the file name.)
+This file was created as part of the setup for this course, and the alias definitions in this file are loaded each time you log in.
+(Ask me how this works.)
+This means that you can create **permanent** alias definitions by adding them to this file.
+
+~~~
+$ nano ~/.bash_aliases
+~~~
+
+The pay off for the extra work of editing this file is that these alias definitions are now **portable**.
+By copying this file to another Linux environment (such as your Mac or the National Compute Infrastructure in Canberra) you can take all of your favourite shortcuts with you.  
+This is just one of many ways that you can customise your work environment to suit your habits and preferences, reducing tedium and making you more efficient.
 
 ## Variables
 
