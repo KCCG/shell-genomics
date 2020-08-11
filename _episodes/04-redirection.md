@@ -356,7 +356,7 @@ This is probably not a key on
 your keyboard you use very much, so let's all take a minute to find that key. For the standard QWERTY keyboard
 layout, the `|` character can be found using the key combination
 
-- <kbd>Shift</kbd>+<kbd>\</kbd>
+- <kbd>Shift</kbd>+<`\`
 
 What `|` does is take the output that is scrolling by on the terminal and uses that output as input to another command. 
 When our output was scrolling by, we might have wished we could slow it down and
