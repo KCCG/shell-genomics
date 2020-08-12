@@ -145,6 +145,26 @@ Now you've written a file. You can take a look at it with `less` or `cat`, or op
 >
 {: .challenge}
 
+> ## Exercise
+>
+> Open `~/.bash_aliases` again and change one of the aliases to something more memorable, or customise the way that "ll" works, for example. 
+>
+> > ## Solution
+> > 
+> > Use `nano ~/.bash_aliases` to open the file.  
+> > After that, there is no correct answer.
+> > Make changes that work for you -- it's your work environment!!
+> {: .solution}
+>
+{: .challenge}
+
+### Nano versus less
+
+Once people discover `nano`, they often start using to view the contents of files.
+This works, of course, but there is a risk that you might overwrite something important.
+Stick with `cat` and `less` in situations where you just want to have a look.
+It's a whole lot safer that way.
+
 ## Writing scripts
 
 A really powerful thing about the command line is that you can write scripts. Scripts let you save commands to run them and also lets you put multiple commands together. Though writing scripts may require an additional time investment initially, this can save you time as you run them repeatedly. Scripts can also address the challenge of reproducibility: if you need to repeat an analysis, you retain a record of your command history within the script.
