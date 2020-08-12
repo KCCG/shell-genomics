@@ -531,10 +531,13 @@ Answer: they are defined in a file called ".bash_aliases" in your home directory
 This file was created as part of the setup for this course, and the alias definitions in this file are loaded each time you log in.
 (Ask me how this works.)
 This means that you can create **permanent** alias definitions by adding them to this file.
+We'll look at how to edit files from the command line in the next chapter, but here is a quick preview.
+
 
 ~~~
 $ nano ~/.bash_aliases
 ~~~
+(Type <kbd>Control</kbd>+<kbd>x</kbd> to exit.)
 
 The pay off for the extra work of editing this file is that these alias definitions are now **portable**.
 By copying this file to another Linux environment (such as your Mac or the National Compute Infrastructure in Canberra) you can take all of your favourite shortcuts with you.  
