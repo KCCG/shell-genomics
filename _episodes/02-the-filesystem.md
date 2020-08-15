@@ -70,7 +70,7 @@ $ pwd
 {: .bash}
 
 ~~~
-/home/dcuser/shell_data
+/home/user/shell_data
 ~~~
 {: .output}
 
