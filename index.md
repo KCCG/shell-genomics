@@ -21,5 +21,10 @@ There are quite a few reasons to start learning about the shell:
 > concept of genomic variation within a population. Participants should bring their laptops and plan to participate actively. 
 >
 > This lesson is intended to be run on "Wolfpack", the Garvan HPC. Garvan staff and students can see [this Confluence page](https://intranet.gimr.garvan.org.au/display/BINF/Connecting+to+the+Cluster) to learn about accessing the cluster.
-> In order to access the data files used in this lesson see TODO
+> In order to access the data files used in this lesson you will need to run a setup script.
+> This will be one of the first things that we do in class.
+> If you working through this on your own then connect to the cluster and run the following script:
+> ~~~
+> bash /share/ScratchGeneral/johree/course_materials/setup.sh
+> ~~~
 {: .prereq}
