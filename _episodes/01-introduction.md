@@ -92,7 +92,7 @@ time, date or current working directory.
 Later we will delve into **how** you can customise the prompt and other aspects of your work 
 environment, but for now let's switch to a more useful setup.
 
-Note1: Skip this next step if you have already configured your .bash_profile and .bashrc
+Note1: Skip this next step if you have already configured your .bash_profile and .bashrc. 
 Note2: If you don't know what I'm talking about, then don't worry -- the next step will take care of it for you.
 
 Type the following command after the prompt. Take care with the spelling, including capitalisation.
@@ -128,22 +128,28 @@ this information in the prompt to remind us where we are can be really useful.
 The "~" tells you that you are in your home directory. This will change as you navigate through the file system.
 
 As well as customising your work environment, you will also need to set up the data that you will be using for this course.
-Type the following comand after the prompt. Again, you will need to be careful with your typing. You can speed things up AND 
-reduce typos by taking advantage of "tab completion". Instead of typing "share", just type "sh" and then press the Tab key.
-Similarly, type "Sc" and press Tab. (You still need to get capitalisation right...) If there are multiple candidates then 
-pressing Tab once won't do anything, but if you press Tab a second time you will see a list of alternatives. In this case, 
-type another letter or two until the first part is unique and then press Tab again.
+Type the following comand after the prompt. Again, you will need to be careful with your typing. 
+> ## Tip
+> 
+> You can speed things up AND reduce typos by taking advantage of "tab completion". 
+> Instead of typing "share", just type "sh" and then press the Tab key.
+> Similarly, type "Sc" and press Tab. 
+> (You still need to get capitalisation right...) 
+> If there are multiple candidates then pressing Tab once won't do anything, but if you press Tab a second time you will see a list of alternatives. 
+> In this case, type another letter or two until the first part is unique and then press Tab again.
+{: .callout}
 
 ~~~
 $ source /share/ScratchGeneral/johree/course_materials/setup.sh
 ~~~
 {: .bash}
 
-This "setup.sh" script creates a bunch of directories, copies data into them and then decompresses the data. The script 
-prints out messages on the screen to show what it is doing. Most of these messages will probably be fairly cryptic at this stage,
-so don't worry if you don't understand everything just yet. By the end of the course, most of this will make sense.
-However, please alert the instructor if there are any **error** messages in the output. We want to make sure that you are set up
-and ready to go before the course gets properly underway.
+This "setup.sh" script creates a bunch of directories, copies data into them and then decompresses the data. 
+The script prints out messages on the screen to show what it is doing. Most of these messages will probably be fairly cryptic at this stage,
+so don't worry if you don't understand everything just yet. 
+By the end of the course, most of this will make sense.
+However, please alert the instructor if there are any **error** messages in the output. 
+We want to make sure that you are set up and ready to go before the course gets properly underway.
 
 ## Getting started
 
