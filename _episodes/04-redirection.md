@@ -356,7 +356,7 @@ This is probably not a key on
 your keyboard you use very much, so let's all take a minute to find that key. For the standard QWERTY keyboard
 layout, the `|` character can be found using the key combination
 
-- <kbd>Shift</kbd>+<kbd>\\</kbd>
+- <kbd>Shift</kbd>+<kbd>\</kbd>
 
 What `|` does is take the output that is scrolling by on the terminal and uses that output as input to another command. 
 When our output was scrolling by, we might have wished we could slow it down and
@@ -439,9 +439,9 @@ them together, you can do some really powerful things very
 efficiently. Here are a couple of examples.
 
 Remember how you can use the `history` command to view the entire history of every command that you've ever typed?
-Well, before you know that list of commands will be hundreds or even thousands of lines long. Piping the **output** of
-`history` into the `less` command makes it much easier to navigate. You can scroll down with the `space` key, jump to the
-end of the list with `g` or search for key words with `/`. 
+Well, before you know it that list of commands will be hundreds or even thousands of lines long. Piping the **output** of
+`history` into the `less` command makes it much easier to navigate. You can scroll down with the <kbd>space</kbd> key, jump to the
+end of the list with <kbd>G</kbd> or search for key words with <kbd>/</kbd>. 
 
 ~~~
 $ history | less
@@ -450,7 +450,7 @@ $ history | less
 
 Another example is searching your command history for particular words, and then displaying all the matching records. You
 can achieve this by piping `history` through `grep`. Can't remember where you moved that file, or even exactly what it was called? 
-The following command will show you all of the "mv" commands that you have ever entered.
+The following command will show you all of the `mv` commands that you have ever entered.
 
 ~~~
 $ history | grep mv
@@ -482,6 +482,7 @@ Rather than type them out each time, you can define an `alias` as a kind of a sh
 ~~~
 $ alias hgrep="history | grep"
 ~~~
+{: .bash}
 
 This code snippet defines a new alias.
 After typing this snippet at the command prompt, you can now simply type "hgrep mv" instead of "history | grep mv".
@@ -497,6 +498,7 @@ I can achieve this with the `ls` command the following options:
 ~~~
 $ ls -AlhF --group-directories-first
 ~~~
+{: .bash}
 
 **Or** I can define an alias to save my typing all that every time. 
 
@@ -504,13 +506,17 @@ $ ls -AlhF --group-directories-first
 $ alias ll="ls -AlhF --group-directories-first"
 $ ll
 ~~~
+{: .bash}
 
 If you type "alias" you will see a list of the aliases that have already been defined.
 Some of these won't make sense yet, but by the end of the course you should be able to decipher all of them.
 
 ~~~
 $ alias
+~~~
+{: .bash}
 
+~~~
 alias ll="ls -AlhF --directories-first"
 alias la="ls -aF"
 alias cdscr="cd /share/ScratchGeneral/${USER}" 
@@ -520,6 +526,7 @@ alias modgrep="module avail 2>&1 | grep"
 alias coursehome="cd /share/ScratchGeneral/${USER}/course"
 alias shrub="tree -L 3"
 ~~~
+{: .output}
 
 All of the alias definitions are in the form "alias A=B".
 Once an alias has been defined, you can just type "A" instead of "B".  
@@ -537,6 +544,7 @@ We'll look at how to edit files from the command line in the next chapter, but h
 ~~~
 $ nano ~/.bash_aliases
 ~~~
+{: .bash}
 (Type <kbd>Control</kbd>+<kbd>x</kbd> to exit.)
 
 The pay off for the extra work of editing this file is that these alias definitions are now **portable**.
@@ -552,7 +560,7 @@ For example, you might prefer "history_search" rather than "hgrep", or you might
 As well as using the shell to issue commands, we can also do some basic programming to automate tasks. Actually, shell programming can
 get quite sophisticated, but once the level of complexity crosses a certain threshold you are probably better off using a general-purpose
 programming language such as Python. Different people have different opinions about exactly where that threshold lies, and it partly 
-depends on your skill level. 
+depends on your skill and comfort level with each toolkit. 
 
 A key concept in programming is the idea of a "variable". You can think of variables as "named buckets" that contain values. To use them,
 we have to learn to put values in and take values out. Let's start with the latter.
@@ -574,7 +582,7 @@ rather than treat it as text or an external command. In shell programming, this 
 
 There are dozens of environment variables, but probably only a handful that you are like to use regularly. 
 You can use the `printenv` command to see a full list, but because there are so many we'll pipe the results through `less`. 
-(Remember to press "space" to scroll and press "q" to exit `less` when you finish.)
+(Remember to press <kbd>space</kbd> to scroll and press <kbd>q</kbd> to exit `less` when you finish.)
 
 ~~~
 $ printenv | less
@@ -584,6 +592,7 @@ $ printenv | less
 More interestingly, you can also create your **own** variables. The basic format is `variable_name=value`, as shown in the examples below.
 Note that there is **no** `$` in front of the name when you **define** a variable and there is no space on either side of the `=` sign. Also,
 there are no spaces inside the variable name. If you need to use spaces in a value, enclose the whole value in quotes (`"` or `'`). 
+There is a subtle difference between single and double-quotes that I will elaborate on if anybody is curious enough. 
 Although it is conventional to use ALL CAPS to define **environment** variables, user-defined variable names can be upper or lower case,
 or any mix of both. Variable names are case-sensitive though, so make sure that you match the case used when the variable was defined.
 
@@ -634,7 +643,7 @@ is part of a more complex expression. You can get away with plain old `$` when t
 ## Using the output of commands with $( )
 
 The `$` symbol is a bit overused in `bash`. We've seen it used for the command prompt, and now also as a way to extract the value of a variable.
-You can also use it with the `$( )` pattern to execute a command and then either save the result in a variable or use the result as part of a larger expression. 
+You can also use it with the `$( )` pattern to execute a command and then use the result as part of a larger expression, including saving that result in a variable.
 That may sound a little abstract -- a concrete example should make it clearer:
 
 ~~~
@@ -650,24 +659,25 @@ We can then extract this value later. Here we just `echo` the value to the scree
 The trick to deciphering `$` is to look at the immediate context:
 - `$` in front of a variable name **extracts** the value of that variable
 - `$` together with `{ }` in a `${variable}` pattern also **extracts** the value of that variable
-- `$` together with `( )` in a `${ command }` pattern first **runs** the command and then uses the **result** of the command as part of a larger expression. The larger expression could be a variable assignment (as in the example above) but not necessarily (as we shall see below).
+- `$` together with `( )` in a `${ command }` pattern first **runs** the command and then uses the **result** of the command as part of a larger expression. 
+The larger expression could be a variable assignment (as in the example above) but not necessarily (as we shall see below).
 
 
 ## Writing for loops
 
 Loops are key to productivity improvements through automation as they allow us to execute commands repeatedly. 
 Similar to wildcards and tab completion, using loops also reduces the amount of typing (and typing mistakes). 
-Loops are helpful when performing operations on groups of sequencing files, such as unzipping or trimming multiple
-files. We will use loops for these purposes in subsequent analyses, but will cover the basics of them for now.
+Loops are helpful when performing operations on groups of sequencing files, such as unzipping or trimming multiple files. 
+We will use loops for these purposes in subsequent analyses, but will cover the basics of them for now.
 
 When the shell sees the keyword `for`, it knows to repeat a command (or group of commands) once for each item in a list. 
-Each time the loop runs (called an iteration), an item in the list is assigned in sequence to the **variable**, and 
-the commands inside the loop are executed, before moving on to the next item in the list. Inside the loop, we call for 
-the variable's value by putting `$` in front of it. 
+Each time the loop runs (called an iteration), an item in the list is assigned in sequence to the **variable**, and the commands inside the loop are executed, before moving on to the next item in the list. 
+Inside the loop, we call for the variable's value by putting `$` in front of it. 
 
-Let's write a for loop to show us the first two lines of the fastq files we downloaded earlier. You will notice the shell 
-prompt changes from `$` to `>` and back again as we were typing in our loop. The second prompt, `>`, is different to remind 
-us that we haven’t finished typing a complete command yet. A semicolon, `;`, can be used to separate two commands written on a single line.
+Let's write a for loop to show us the first two lines of the fastq files we downloaded earlier. 
+You will notice the shell prompt changes from `$` to `>` and back again as we were typing in our loop. 
+The second prompt, `>`, is different to remind us that we haven’t finished typing a complete command yet. 
+A semicolon, `;`, can be used to separate two commands written on a single line.
 
 ~~~
 $ cd ../untrimmed_fastq/
@@ -737,7 +747,12 @@ SRR097977.fastq
 
 Basename is really powerful when used in a for loop. It allows to access just the file prefix, which you can use to name things. Let's try this.
 
-Inside our for loop, we create a new name variable. We call the basename function inside the parenthesis, then give our variable name from the for loop, in this case `${filename}`, and finally state that `.fastq` should be removed from the file name. It’s important to note that we’re not changing the actual files, we’re creating a new variable called name. The line > echo $name will print to the terminal the variable name each time the for loop runs. Because we are iterating over two files, we expect to see two lines of output.
+Inside our for loop, we create a new name variable. 
+We call the basename function inside the parenthesis, passing in our variable name from the for loop, in this case `${filename}`.
+Finally we state that `.fastq` should be removed from the file name. 
+It’s important to note that we’re not changing the actual files, we’re creating a new variable called "name". 
+The line > echo $name will print to the terminal the variable name each time the for loop runs. 
+Because we are iterating over two files, we expect to see two lines of output.
 
 ~~~
 $ for filename in *.fastq
@@ -748,11 +763,13 @@ $ for filename in *.fastq
 ~~~
 {: .bash}
 
-Let's unpack `name=$(basename ${filename} .fastq)`. The first `$` is actually part of a `$( command )` pattern. 
+Let's unpack `name=$(basename ${filename} .fastq)`. 
+The first `$` is actually part of a `$( command )` pattern. 
 In this case the command is `basename ${filename} .fastq`. 
 So the second `$` is part of a `${variable}` pattern. 
 The value of the `filename` variable is "expanded" into the `basename` command before the command is executed.
-Finally, the result of the command is stored in the `name` variable.
+Finally, the result of the `basename` command is stored in the `name` variable.
+Later, when we want to **use** the value of the `name` variable, we'll need to stick a `$` in front as either `$name` or perhaps `${name}`.
 
 > ## Exercise
 >
@@ -773,13 +790,14 @@ Finally, the result of the command is stored in the `name` variable.
 > {: .solution}
 {: .challenge}
 
-One way this is really useful is to move files. Let's rename all of our .txt files using `mv` so that they have the years on them, which will document when we created them. 
+One way this is really useful is to move files. 
+Let's rename all of our .txt files using `mv` so that they have the years on them, which will document when we created them. 
 
 ~~~
 $ for filename in *.txt
 > do
 > name=$(basename ${filename} .txt)
-> mv ${filename}  ${name}_2019.txt
+> mv ${filename}  ${name}_2020.txt
 > done
 ~~~
 {: .bash}
@@ -787,15 +805,15 @@ $ for filename in *.txt
 
 > ## Exercise
 >
-> Remove `_2019` from all of the `.txt` files. 
+> Remove `_2020` from all of the `.txt` files. 
 >
 >> ## Solution
 >>  
 >>
 >> ~~~
->> $ for filename in *_2019.txt
+>> $ for filename in *_2020.txt
 >> > do
->> > name=$(basename ${filename} _2019.txt)
+>> > name=$(basename ${filename} _2020.txt)
 >> > mv ${filename} ${name}.txt
 >> > done
 >> ~~~
