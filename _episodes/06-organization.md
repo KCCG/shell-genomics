@@ -63,7 +63,7 @@ $ pwd
 You should see the output: 
 
 ~~~
-/home/dcuser  
+/home/user  
 ~~~
 {: .output}
 
@@ -72,20 +72,27 @@ You should see the output:
 > always returns you to home.  
 {: .callout}
 
+> ## Tip  
+> Throughout this course, our project directories ("workshop" and "shell_data" and "course") are directly below our home directory.
+> Personally, I prefer to place these directories under a "project" directory so that my top level home directory doesn't get too cluttered.
+> I chose to keep the original Data Carpentry directory structure rather than rewrite all of the file paths.
+> But at the end of the course I recommend tidying up and reorganising the files and directories from this course.
+{: .callout}
+
 > ## Exercise  
 > Use the `mkdir` command to make the following directories:   
-> - `dc_workshop`
-> - `dc_workshop/docs`
-> - `dc_workshop/data`
-> - `dc_workshop/results`
+> - `workshop`
+> - `workshop/docs`
+> - `workshop/data`
+> - `workshop/results`
 > 
 > > ## Solution
 > > 
 > > ~~~
-> > $ mkdir dc_workshop
-> > $ mkdir dc_workshop/docs
-> > $ mkdir dc_workshop/data
-> > $ mkdir dc_workshop/results
+> > $ mkdir workshop
+> > $ mkdir workshop/docs
+> > $ mkdir workshop/data
+> > $ mkdir workshop/results
 > > ~~~
 > > {: .bash}
 > {: .solution}
@@ -96,7 +103,7 @@ Use `ls -R` to verify that you have created these directories. The `-R` option f
 iteratively. 
 
 ~~~
-$ ls -R dc_workshop
+$ ls -R workshop
 ~~~
 {: .bash}
 
@@ -171,8 +178,8 @@ $ history | tail -n 7
 
 > ## Exercise
 > Using your knowledge of the shell, use the append redirect `>>` to create a file called
-> `dc_workshop_log_XXXX_XX_XX.sh` (Use the four-digit year, two-digit month, and two digit day, e.g.
-> `dc_workshop_log_2017_10_27.sh`)  
+> `workshop_log_XXXX_XX_XX.sh` (Use the four-digit year, two-digit month, and two digit day, e.g.
+> `workshop_log_2017_10_27.sh`)  
 > > 
 > > ## Solution
 > > ~~~
@@ -187,7 +194,7 @@ You may have noticed that your history contains the `history` command itself. To
 from our log, let's use the `nano` text editor to fix the file:  
 
 ~~~
-$ nano dc_workshop_log_2017_10_27.sh
+$ nano workshop_log_2017_10_27.sh
 ~~~
 {: .bash}
 
@@ -230,43 +237,43 @@ Your file should look something like this:
 # 2017_10_27
 # Created sample directories for the Data Carpentry workshop
 
-mkdir dc_workshop
-mkdir dc_workshop/docs
-mkdir dc_workshop/data
-mkdir dc_workshop/results
+mkdir workshop
+mkdir workshop/docs
+mkdir workshop/data
+mkdir workshop/results
 ~~~
 {: .output}
 
-If you keep this file up to date, you can use it to re-do your work on your project if something happens to your results files. To demonstrate how this works, first delete
-your `dc_workshop` directory and all of its subdirectories. Look at your directory 
-contents to verify the directory is gone. 
+If you keep this file up to date, you can use it to re-do your work on your project if something happens to your results files. 
+To demonstrate how this works, first delete your `workshop` directory and all of its subdirectories. 
+Look at your directory contents to verify the directory is gone. 
 
 ~~~
-$ rm -r dc_workshop
+$ rm -r workshop
 $ ls
 ~~~
 {: .bash}
 
 ~~~
-shell_data	dc_workshop_log_2017_10_27.sh
+shell_data	workshop_log_2017_10_27.sh
 ~~~
 {: .output}
 
-Then run your workshop log file as a bash script. You should see the `dc_workshop`
-directory and all of its subdirectories reappear. 
+Then run your workshop log file as a bash script. 
+You should see the `workshop` directory and all of its subdirectories reappear. 
 
 ~~~
-$ bash dc_workshop_log_2017_10_27.sh
+$ bash workshop_log_2017_10_27.sh
 $ ls
 ~~~
 {: .bash}
 
 ~~~
-shell_data	dc_workshop dc_workshop_log_2017_10_27.sh
+shell_data	workshop workshop_log_2017_10_27.sh
 ~~~
 {: .output}
 
-It's important that we keep our workshop log file outside of our `dc_workshop` directory
+It's important that we keep our workshop log file outside of our `workshop` directory
 if we want to use it to recreate our work. It's also important for us to keep it up to
 date by regularly updating with the commands that we used to generate our results files.
 
