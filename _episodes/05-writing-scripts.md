@@ -77,11 +77,10 @@ The text at the bottom of the screen shows the keyboard shortcuts for performing
 > biology then it is probably worth your while learning `vim`. `nano` will be fine
 > for now but make a mental bookmark to learn `vim`.
 >
-> If you are going to draft a long text file from scratch, then most people
-> find it easier to use a graphical text editor. Two excellent options are
-> [Atom](https://atom.io/) and [Sublime](https://www.sublimetext.com/).
+> If you are going to draft a long text file from scratch, then most people find it easier to use a graphical text editor. 
+> Two excellent options are `[Atom](https://atom.io/)` and `[Sublime](https://www.sublimetext.com/)`.
 > These editors provide syntax highlighting and code completion and many other useful features.
-> You can also use `sshfs` with Atom or Sublime to save your files directly to the cluster.
+> You can also use `sshfs` with `Atom` or `Sublime` to save your files directly to the cluster, or edit files already on the cluster.
 > 
 > Despite the advantages of these graphical editors, there are many situations where
 > it is extremely helpful to be able to create or edit a text file from the terminal.
@@ -160,18 +159,26 @@ Now you've written a file. You can take a look at it with `less` or `cat`, or op
 
 ### Nano versus less
 
-Once people discover `nano`, they often start using to view the contents of files.
-This works, of course, but there is a risk that you might overwrite something important.
+Once people discover `nano`, they often start using `nano` to view the contents of files.
+This works, of course, but there is a risk that you might accidentally overwrite something important.
 Stick with `cat` and `less` in situations where you just want to have a look.
 It's a whole lot safer that way.
 
 ## Writing scripts
 
-A really powerful thing about the command line is that you can write scripts. Scripts let you save commands to run them and also lets you put multiple commands together. Though writing scripts may require an additional time investment initially, this can save you time as you run them repeatedly. Scripts can also address the challenge of reproducibility: if you need to repeat an analysis, you retain a record of your command history within the script.
+A really powerful thing about the command line is that you can write scripts. 
+Scripts let you save commands to run them and also lets you put multiple commands together. 
+Though writing scripts may require an additional time investment initially, this can save you time as you run them repeatedly. 
+Scripts can also address the challenge of reproducibility: if you need to repeat an analysis, you retain a record of your command history within the script.
+Wetlab scientists are keenly aware of the importance of documenting experimental procedures.
+Scripts allow you to document your drylab (computational) experiements, while also offering many other advantages.
 
-One thing we will commonly want to do with sequencing results is pull out bad reads and write them to a file to see if we can figure out what's going on with them. We're going to look for reads with long sequences of N's like we did before, but now we're going to write a script, so we can run it each time we get new sequences, rather than type the code in by hand each time.
+One thing we will commonly want to do with sequencing results is pull out bad reads and write them to a file to see if we can figure out what's going on with them.
+We're going to look for reads with long sequences of N's like we did before, but now we're going to write a script, so we can run it each time we get new sequences, rather than type the code in by hand each time.
 
-We're going to create a new file to put this command in. We'll call it `bad-reads-script.sh`. The `sh` isn't required, but using that extension tells us that it's a shell script.
+We're going to create a new file to put this command in. 
+We'll call it `bad-reads-script.sh`. 
+The `sh` isn't required, but using that extension tells us that it's a shell script.
 
 ~~~
 $ nano bad-reads-script.sh
@@ -193,7 +200,8 @@ grep -B1 -A2 --no-filename NNNNNNNNNN *.fastq | grep --invert-match '^--' > scri
 > 
 {: .callout}
 
-Type your `grep` command into the file and save it as before. Be careful that you did not add the `$` at the beginning of the line.
+Type your `grep` command into the file and save it as before. 
+Be careful that you did not add the `$` at the beginning of the line.
 
 Now comes the neat part. We can run this script. Type:
 
@@ -223,7 +231,11 @@ It will look like nothing happened, but now if you look at `scripted_bad_reads.t
 
 ## Making the script into a program
 
-We had to type `bash` because we needed to tell the computer what program to use to run this script. Instead, we can turn this script into its own program. We need to tell it that it's a program by making it executable. We can do this by changing the file permissions. We talked about permissions in [an earlier episode](http://www.datacarpentry.org/shell-genomics/03-working-with-files/).
+We had to type `bash` because we needed to tell the computer what program to use to run this script. 
+Instead, we can turn this script into its own program. 
+We need to tell it that it's a program by making it executable. 
+We can do this by changing the file permissions. 
+We talked about permissions in [an earlier episode](http://www.datacarpentry.org/shell-genomics/03-working-with-files/).
 
 First, let's look at the current permissions.
 
@@ -233,7 +245,7 @@ $ ls -l bad-reads-script.sh
 {: .bash}
 
 ~~~
--rw-rw-r-- 1 dcuser dcuser 0 Oct 25 21:46 bad-reads-script.sh
+-rw-rw-r-- 1 user user 0 Oct 25 21:46 bad-reads-script.sh
 ~~~
 {: .output}
 
@@ -252,11 +264,14 @@ $ ls -l bad-reads-script.sh
 {: .bash}
 
 ~~~
--rwxrwxr-x 1 dcuser dcuser 0 Oct 25 21:46 bad-reads-script.sh
+-rwxrwxr-x 1 user user 0 Oct 25 21:46 bad-reads-script.sh
 ~~~
 {: .output}
 
-Now we see that it says `-rwxr-xr-x`. The `x`'s that are there now tell us we can run it as a program. So, let's try it! We'll need to put `./` at the beginning so the computer knows to look here in this directory for the program.
+Now we see that it says `-rwxr-xr-x`. 
+The `x`'s that are there now tell us we can run it as a program. 
+So, let's try it! 
+We'll need to put `./` at the beginning so the computer knows to look here in this directory for the program.
 
 ~~~
 $ ./bad-reads-script.sh
@@ -269,9 +284,9 @@ You will learn more about writing scripts in [a later lesson](https://datacarpen
 
 ## Moving and Downloading Data
 
-So far, we've worked with data that is alread on the cluster. Usually, however,
-most analyses begin with moving data onto the cluster. Below we'll show you some commands to 
-download data onto the cluster, or to move data between your computer and the cluster.
+So far, we've worked with data that is alread on the cluster. 
+Usually, however, most analyses begin with moving data onto the cluster. 
+Below we'll show you some commands to download data onto the cluster, or to move data between your computer and the cluster.
 
 ### Getting data from the cloud
 
@@ -361,18 +376,15 @@ not your local machine.
 ### Moving files between your laptop and the cluster
 
 What if the data you need is on your local computer, but you need to copy it to the cluster? 
-There are also several ways to do this, but it's *always* easier
-to start the transfer locally. **This means if you're typing into a terminal, the terminal
-should not be logged into the cluster, it should be showing your local computer. If you're
-using a transfer program, it needs to be installed on your local machine, not on the cluster.**
+There are also several ways to do this, but it's *always* easier to start the transfer locally. 
+**This means if you're typing into a terminal, the terminal should not be logged into the cluster, it should be showing your local computer. 
+If you're using a transfer program, it needs to be installed on your local machine, not on the cluster.**
 
 ## Transferring Data Between your Local Machine and the Cluster
 
 These directions are platform specific, so please follow the instructions for your system:
 
 **Please select the platform you wish to use for the exercises: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="unix" id="id_unix" selected> Linux/Mac </option><option value="win" id="id_win" selected> Windows </option></select>**
-
-
 
 <div id="div_unix" style="display:block" markdown="1">
 
@@ -387,10 +399,8 @@ scp <file I want to move> <where I want to move it>
 ~~~
 {: .bash}
 
-Note that you are always running `scp` locally, but that *doesn't* mean that
-you can only move files from your local computer. 
-In order to move a file from your local computer to the cluster, 
-the command would look like this:
+Note that you are always running `scp` locally, but that *doesn't* mean that you can only move files from your local computer. 
+In order to move a file from your local computer to the cluster, the command would look like this:
 
 ~~~
 $ scp <local file> <host>:<path>
@@ -450,14 +460,14 @@ to use `sshfs` to mount a cluster volume and then use familiar drag and drop ope
 
 <div id="div_win" style="display:block" markdown="1">
 
-### Uploading Data to your Virtual Machine with PSCP
+### Uploading Data to the cluster with PSCP
 
-If you're using a PC, we recommend you use the *PSCP* program. This program is from the same suite of
-tools as the PuTTY program we have been using to connect.
+If you're using a PC, we recommend you use the *PSCP* program. 
+This program is from the same suite of tools as the PuTTY program we have been using to connect.
 
 1. If you haven't done so, download pscp from [http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe](http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe)
-2. Make sure the *PSCP* program is somewhere you know on your computer. In this case,
-your Downloads folder is appropriate.
+2. Make sure the *PSCP* program is somewhere you know on your computer. 
+In this case, your Downloads folder is appropriate.
 3. Open the windows [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell);
 go to your start menu/search enter the term **'cmd'**; you will be able to start the shell
 (the shell should start from C:\Users\your-pc-username>).
