@@ -74,7 +74,9 @@ $ ls /usr/bin/*.sh
 {: .bash}
 
 ~~~
-/usr/bin/amuFormat.sh  /usr/bin/lesspipe.sh  /usr/bin/pv.sh etc. etc.
+/usr/bin/amuFormat.sh     /usr/bin/lprsetup.sh      /usr/bin/pv.sh
+/usr/bin/gettext.sh       /usr/bin/mksmbpasswd.sh   /usr/bin/setup-nsssysinit.sh
+/usr/bin/lesspipe.sh      /usr/bin/pm-utils-bugreport-info.sh
 ~~~
 {: .output}
 
