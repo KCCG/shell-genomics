@@ -110,14 +110,14 @@ $ ls -R workshop
 You should see the following output:
 
 ~~~
-dc_workshop/:
+workshop/:
 data  docs  results
 
-dc_workshop/data:
+workshop/data:
 
-dc_workshop/docs:
+workshop/docs:
 
-dc_workshop/results: 
+workshop/results: 
 ~~~
 {: .output}
 
