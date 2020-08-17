@@ -434,9 +434,23 @@ You should have a file that contains bad reads called ~/shell_data/scripted_bad_
 **Tip:** If you are looking for another (or any really) text file in your home directory to use instead, try:
 
 ~~~
-$ find ~ -name *.txt
+$ find ~ -name .bash*
 ~~~
 {: .bash}
+
+If there are a lot of files and directories to search through, the `find` command can take quite a while to do its thing.
+So when you specify the starting point for the search ("~" in the example above) try to get as close as possible to where you expect the target files to be.
+Like the `tree` command, the `find` command doesn't follow symbolic links by default.
+We are using a lot of links, so specify the "-L" flag **before** the search path, as follows.
+~~~
+$ find -L ~ -name *.fastq
+~~~
+{: .bash}
+
+The `tree` command uses "-l" (lowercase) to follow links while the `find` command uses "-L".
+You're right, this is not very consistent.
+That's because different commands were created by different people at different times.
+If in doubt, consult the `man` pages.
 
 
 Download the bad reads file in ~/shell_data/scripted_bad_reads.txt to your home ~/Download directory using the following command 
