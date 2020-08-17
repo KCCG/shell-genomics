@@ -373,6 +373,16 @@ $ tree -L 3
 all their subdirectories, and so on all the way down to the lowest level. Depending on where you are in the filesystem, that could produce more output
 than is really helpful. It is usually a good idea to use the `-L` flag to only display a few "levels".
 
+**Note**: By default, `tree` doesn't follow symbolic links. 
+We've made quite liberal use of symbolic links for this workshop by placing the real data files on /share/ScratchGeneral/ and linking to these files from your home directory.
+You can instruct `tree` to follow symbolic links using the `-l` flag (that's lowercase "l").
+
+~~~
+$ cd ~/course
+$ tree -l -L 3
+~~~
+{: .bash}
+
 ## sshfs
 
 All the command line has many advantages, sometimes it is easier to browse the filesystem using familiar graphical interfaces. `sshfs` (Mac) and `sshfs-win`
