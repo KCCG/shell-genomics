@@ -497,7 +497,7 @@ Then upload it to your remote machine. You will be prompted to enter a password,
 **(make sure you substitute 'your-pc-username' for your actual pc username and 'user' for your Garvan ID)**
 
 ~~~
-C:\User\your-pc-username\Downloads> pscp.exe local_file.txt user@dice01:/home/user/
+C:\User\your-pc-username\Downloads> pscp.exe -P 22 local_file.txt user@dice01:/home/user/
 ~~~
 {: .bash}
 
@@ -508,7 +508,7 @@ C:\User\your-pc-username\Downloads> pscp.exe local_file.txt user@dice01:/home/us
 
 
 ~~~
-C:\User\your-pc-username\Downloads> pscp.exe user@dice01:/home/user/shell_data/untrimmed_fastq/scripted_bad_reads.txt.
+C:\User\your-pc-username\Downloads> pscp.exe user@dice01:/home/user/shell_data/untrimmed_fastq/scripted_bad_reads.txt local_file.txt
 
 C:\User\your-pc-username\Downloads
 ~~~
