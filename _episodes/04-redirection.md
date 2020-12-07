@@ -336,9 +336,11 @@ $ wc -l bad_reads.txt
 > 
 > Another alternative would be to use the ".fastq" extension, but to save the results in a different directory.
 > Separating raw data from processed data is generally a good thing.
+> Note that you'll need to make the directory first if it doesn't exist already.
 >
 > ~~~
-> grep -B1 -A2 NNNNNNNNNN *.fastq > reults/bad_reads.fastq
+> mkdir results
+> grep -B1 -A2 NNNNNNNNNN *.fastq > results/bad_reads.fastq
 > ~~~
 > {: .bash}
 {: .callout}
