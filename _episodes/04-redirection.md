@@ -703,6 +703,12 @@ word `done` ends the loop.
 After executing the loop, you should see the first two lines of both fastq files printed to the terminal. Let's create a loop that 
 will save this information to a file.
 
+Note: the ">" symbols below indicate that the line is a continuation of the previous line.
+You might not see these symbols, depending on your configuration.
+In particular, if you are using `ble.sh` for auto-completion, you might see "MULTILINE" displayed below your prompt.
+This just means that the command is being entered over multiple lines.
+In this case, pressing "RETURN" (or "ENTER") just adds another line -- to actually execute the loop you will need to press `Control-J`.
+
 ~~~
 $ for filename in *.fastq
 > do
@@ -823,4 +829,5 @@ $ for filename in *.txt
 >>
 > {: .solution}
 {: .challenge}
+
 
